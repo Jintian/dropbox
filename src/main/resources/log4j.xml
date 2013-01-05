@@ -5,7 +5,7 @@
     <appender name="PROJECT"
               class="org.apache.log4j.DailyRollingFileAppender">
         <param name="file" value="log/dropbox.log"/>
-        <param name="append" value="true"/>
+        <param name="Append" value="true"/>
         <param name="encoding" value="GBK"/>
         <param name="threshold" value="INFO"/>
         <param name="datePattern" value="'_'yyyy-MM-dd"/>
