@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
  * will wait for the finish of uploading. Default value is 1 minute.
  * </p>
  * <p>
- * Sample usage: java -Dtimeout=5 -jar dropbox.jar  xxx.text
+ * Sample usage: java -Dtimeout=5 -jar dropbox.jar xxx.text
  * </p>
  */
 public class Main {
@@ -30,6 +30,8 @@ public class Main {
     public static String     ACCESS_SECRET = "";
 
     public static void main(String[] args) throws IOException {
+        setup();
+
         // return if no files is specified
         if (args == null || args.length == 0) {
             log.error("File list is empty!");
@@ -60,5 +62,12 @@ public class Main {
             }
         }
         log.info("Finishing uploading file...");
+    }
+
+    private static void setup() {
+        APP_KEY = System.getProperty("appKey");
+        APP_SECRET = System.getProperty("appSecret");
+        ACCESS_KEY = System.getProperty("accessKey");
+        ACCESS_SECRET = System.getProperty("accessSecret");
     }
 }
