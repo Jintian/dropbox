@@ -44,6 +44,7 @@ public class Uploader implements Callable<Boolean> {
             uploadFile(file, api);
         }
         beginning = System.currentTimeMillis() - beginning;
+
         log.info("Upload finished in " + beginning + "ms !");
         return true;
     }
@@ -58,8 +59,8 @@ public class Uploader implements Callable<Boolean> {
 
     private void uploadFile(String file, DropboxAPI<WebAuthSession> api) {
         File f = new File(file);
-        if (!f.exists()) {
-            log.error("File(" + file + ") does not exist!");
+        if (!f.exists() || !f.isFile()) {
+            log.error("File(" + file + ") may not exist or is a directory!");
             return;
         }
 
@@ -72,10 +73,10 @@ public class Uploader implements Callable<Boolean> {
             meta = api.metadata(dropboxFileName, 1, null, false, null);
             if (meta != null) log.info("Old rev " + meta.rev);
         } catch (DropboxException e) {
-            log.warn("File(" + file + ") may not exist in dropbox server!", e);
+            log.error(e);
         }
 
-        // do uploading
+        // do uploading, overwrite the old file
         try {
             meta = api.putFile(dropboxFileName, new FileInputStream(file), f.length(), meta == null ? null : meta.rev,
                                getProgressListener());

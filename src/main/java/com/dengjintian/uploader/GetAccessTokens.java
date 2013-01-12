@@ -45,8 +45,5 @@ public class GetAccessTokens {
         System.out.println("Use this token pair in future so you don't have to re-authenticate each time:");
         System.out.println("Key token: " + tokens.key);
         System.out.println("Secret token: " + tokens.secret);
-
-        DropboxAPI<WebAuthSession> api = new DropboxAPI<WebAuthSession>(session);
-
     }
 }
